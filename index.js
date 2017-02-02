@@ -1,5 +1,10 @@
 var marked = require('marked');
 
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  gfm: true
+});
+
 var partitionReplace = function (sourceCode, toReplace, firstPartEndIndex, secondPartBeginIndex) {
   var firstPart = sourceCode.substring(0, firstPartEndIndex);
   var secondPart = sourceCode.substring(secondPartBeginIndex);

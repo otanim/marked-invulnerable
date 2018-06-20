@@ -15,6 +15,8 @@ var partitionReplace = function partitionReplace(sourceCode, toReplace, firstPar
 
 module.exports = function (markdown) {
   var html = marked(markdown);
+
+  //href protection
   var hrefRegExp = /href=(["']?(data|javascript|vbscript)(&#58|:|&colon;)((?:.(?!["']?\s+(?:\S+)=|[>"']))+.)["']?)/ig;
   var hrefStr;
   hrefStr = hrefRegExp.exec(html);
@@ -32,6 +34,9 @@ module.exports = function (markdown) {
     hrefRegExp.lastIndex = 0;
     hrefStr = hrefRegExp.exec(html);
   }
+
+  //html event trigger protection
+  html = html.replace(/on([a-zA-Z]+)=['"](.*)['"]/g, 'on$1="console.log(\"hack-attempt\")"');
 
   return html;
 };
